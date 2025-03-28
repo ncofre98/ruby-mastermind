@@ -1,5 +1,6 @@
 require_relative 'lib/board'
+require_relative 'lib/UI'
 
 board = Board.new
-puts board
+UI.show_board(board)
 
