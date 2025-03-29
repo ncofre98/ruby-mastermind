@@ -15,11 +15,18 @@ class MasterMind
 
   def play
     turns = 12
-    hidden_code = number_of_players == 1 ? COLORS.sample(5) : UI.select
+    UI.show_instructions
+    hidden_code = number_of_players == 1 ? COLORS.sample(5) : UI.select_hidden_code
  
     while (turns > 0)
-      
+      guess = UI.select
+      board.grid[1] = guess
+      UI.show_board(board)
+      break
       turns -= 1
     end
   end
+
+  private
+  
 end

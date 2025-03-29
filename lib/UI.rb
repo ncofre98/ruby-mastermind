@@ -1,18 +1,19 @@
 module UI
   def self.select
-    puts "Make your choice:"
+    puts "Make your choice:\n"
     show_options
-    gets.chomp.to_i
+    transform_to_colors(gets.chomp)
   end
 
   def self.select_hidden_code
-    puts "Insert your hidden code:"
+    puts "Insert the hidden code:\n"
     show_options
-    gets.chomp
+    transform_to_colors(gets.chomp)
   end
 
   def self.show_instructions
     puts <<~INSTRUCTIONS
+
     🎯 **Goal of the Game:**  
     Discover the secret code before running out of your 12 attempts.  
 
@@ -31,6 +32,7 @@ module UI
     You'll see: 🔴🔵🟢🟡🟠  
 
     Good luck! 🍀
+
     EXAMPLE
   end
 
@@ -39,17 +41,21 @@ module UI
   end
 
   def self.get_name
-    puts "Insert name of player:"
+    puts "Insert name of player:\n"
     gets.chomp
   end
 
   def self.get_number_of_players
-    puts "Select number of players (1 - 2):"
+    puts "Select number of players (1 - 2):\n"
     gets.chomp.to_i
   end
 
   def self.show_board(board)
     puts "Feedback   Selection"
     puts board
+  end
+
+  def self.transform_to_colors(str)
+    str.split('').map { |color_index| MasterMind::COLORS[color_index.to_i]}
   end
 end
