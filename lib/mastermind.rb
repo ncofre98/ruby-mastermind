@@ -1,5 +1,5 @@
 class MasterMind
-  COLORS = ['🔴', '🔵', '🟢', '🟡', '🟠', '🟣', '⚫', '⚪']
+  COLORS = ['🔴', '🔵', '🟢', '🟡', '🟠', '🟣']
   EXACT_MATCH = '⚫'
   COLOR_MATCH = '⚪'
   EMPTY = '➖'
