@@ -2,6 +2,7 @@ class MasterMind
   COLORS = ['🔴', '🔵', '🟢', '🟡', '🟠', '🟣', '⚫', '⚪']
   EXACT_MATCH = '⚫'
   COLOR_MATCH = '⚪'
+  EMPTY = '➖'
 
 
   attr_accessor :board, :player1, :player2, :guess
@@ -14,19 +15,29 @@ class MasterMind
   end
 
   def play
-    turns = 12
+    moves = 0
     UI.show_instructions
     hidden_code = number_of_players == 1 ? COLORS.sample(5) : UI.select_hidden_code
  
-    while (turns > 0)
+    while (moves < 12)
       guess = UI.select
-      board.grid[1] = guess
+      board.grid[moves] = feedback(guess, hidden_code)
+      board.grid[moves + 1] = guess
       UI.show_board(board)
-      break
-      turns -= 1
+      moves += 1
     end
   end
 
   private
-  
+  def feedback(guess, hidden_code)
+    guess.map.with_index do |ball, index|
+      if ball == hidden_code[index]
+        EXACT_MATCH
+      elsif hidden_code.include?(ball)
+        COLOR_MATCH
+      else
+        EMPTY
+      end
+    end 
+  end
 end

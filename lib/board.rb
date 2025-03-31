@@ -2,7 +2,7 @@ class Board
   attr_accessor :grid
 
   def initialize
-    @grid = Array.new(24) { Array.new(5, '.') }
+    @grid = Array.new(24) { Array.new(5, MasterMind::EMPTY) }
   end
 
   def to_s

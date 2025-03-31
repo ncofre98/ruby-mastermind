@@ -51,7 +51,7 @@ module UI
   end
 
   def self.show_board(board)
-    puts "Feedback   Selection"
+    puts "   FEEDBACK       SELECTION"
     puts board
   end
 
