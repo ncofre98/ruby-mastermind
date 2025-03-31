@@ -58,4 +58,8 @@ module UI
   def self.transform_to_colors(str)
     str.split('').map { |color_index| MasterMind::COLORS[color_index.to_i]}
   end
+
+  def self.show_results(winner)
+    puts winner == true ? "Congratulations" : "Too bad!"
+  end
 end
