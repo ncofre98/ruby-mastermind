@@ -9,16 +9,16 @@ class MasterMind
   attr_reader :hidden_code, :number_of_players
   def initialize
     @board = Board.new
-    @number_of_players = UI.get_number_of_players
     @player1 = Player.new(UI.get_name)
-    @player2 = @number_of_players == 1 ? Player.new : Player.new(UI.get_name)
+    @player2 = Player.new
   end
 
   def play
     moves = 0
     winner = false
     UI.show_instructions
-    hidden_code = number_of_players == 1 ? COLORS.sample(5) : UI.select_hidden_code
+    mode = UI.select_mode
+    hidden_code = mode == 1 ? COLORS.sample(5) : UI.select_hidden_code
  
     while (moves < 12 && !winner)
       guess = UI.select

@@ -45,11 +45,6 @@ module UI
     gets.chomp
   end
 
-  def self.get_number_of_players
-    puts "Select number of players (1 - 2):\n"
-    gets.chomp.to_i
-  end
-
   def self.show_board(board)
     puts "   FEEDBACK       SELECTION"
     puts board
