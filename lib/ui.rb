@@ -5,6 +5,11 @@ module UI
     transform_to_colors(gets.chomp)
   end
 
+  def self.select_mode
+    puts "Insert mode 1: GUESS the code 2: SET the code"
+    gets.chomp.to_i
+  end
+
   def self.select_hidden_code
     puts "Insert the hidden code:\n"
     show_options
@@ -54,7 +59,7 @@ module UI
     str.split('').map { |color_index| MasterMind::COLORS[color_index.to_i]}
   end
 
-  def self.show_results(winner)
-    puts winner == true ? "Congratulations" : "Too bad!"
+  def self.show_results(player)
+    puts "#{player.name} has WON!"
   end
 end

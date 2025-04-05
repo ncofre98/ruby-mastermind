@@ -4,7 +4,6 @@ class MasterMind
   COLOR_MATCH = '⚪'
   EMPTY = '➖'
 
-
   attr_accessor :board, :player1, :player2, :guess
   attr_reader :hidden_code, :number_of_players
   def initialize
@@ -19,15 +18,19 @@ class MasterMind
     UI.show_instructions
     mode = UI.select_mode
     hidden_code = mode == 1 ? COLORS.sample(5) : UI.select_hidden_code
- 
-    while (moves < 12 && !winner)
-      guess = UI.select
-      board.feedback_grid[moves] = feedback(guess, hidden_code)
-      board.selection_grid[moves] = guess
-      UI.show_board(board)
-      winner = true if board.selection_grid[moves] == hidden_code
-      moves += 1
+
+    if mode == 1
+      while (moves < 12 && !winner)
+        guess = UI.select
+        board.selection_grid[moves] = guess
+        board.feedback_grid[moves] = feedback(guess, hidden_code)
+        UI.show_board(board)
+        break if board.selection_grid[moves] == hidden_code
+        moves += 1
+      end
     end
+ 
+    winner = board.selection_grid == hidden_code ? player1 : player2
     UI.show_results(winner)
   end
 
@@ -42,5 +45,9 @@ class MasterMind
         EMPTY
       end
     end 
+  end
+
+  def cpu_guess(last_guess, feedback)
+    return COLORS.sample(5) if feedback.all?(EMPTY)
   end
 end
