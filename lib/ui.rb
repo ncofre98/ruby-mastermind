@@ -23,7 +23,7 @@ module UI
     Discover the secret code before running out of your 12 attempts.  
 
     🔥 **How to Play:**  
-    - Enter 5 numbers, one for each colored ball.  
+    - Enter 4 numbers, one for each colored ball.  
     - Each number corresponds to a specific color.  
 
     🛠️ **Color Options:***
@@ -33,8 +33,8 @@ module UI
 
     puts <<~EXAMPLE
     ✅ **Example:**  
-    If you enter: `01234`  
-    You'll see: 🔴🔵🟢🟡🟠  
+    If you enter: `0123`  
+    You'll see: 🔴🔵🟢🟡  
 
     Good luck! 🍀
 

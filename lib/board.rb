@@ -2,8 +2,8 @@ class Board
   attr_accessor :feedback_grid, :selection_grid
 
   def initialize
-    @feedback_grid = Array.new(12) { Array.new(5, MasterMind::EMPTY) }
-    @selection_grid = Array.new(12) { Array.new(5, MasterMind::EMPTY) }
+    @feedback_grid = Array.new(12) { Array.new(4, MasterMind::EMPTY) }
+    @selection_grid = Array.new(12) { Array.new(4, MasterMind::EMPTY) }
   end
 
   def to_s

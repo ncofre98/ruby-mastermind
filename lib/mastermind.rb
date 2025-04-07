@@ -4,8 +4,7 @@ class MasterMind
   COLOR_MATCH = '⚪'
   EMPTY = '➖'
 
-  attr_accessor :board, :player1, :player2, :guess
-  attr_reader :hidden_code, :number_of_players
+  attr_accessor :board, :player1, :player2
   def initialize
     @board = Board.new
     @player1 = Player.new(UI.get_name)
@@ -19,7 +18,8 @@ class MasterMind
     hidden_code = mode == 1 ? COLORS.sample(5) : UI.select_hidden_code
 
     while (moves < 12)
-      guess = UI.select
+      last_feedback = moves == 0 ? nil : board.feedback_grid[moves - 1]
+      guess = mode == 1 ? UI.select : cpu_guess(last_feedback, hidden_code)
       board.selection_grid[moves] = guess
       board.feedback_grid[moves] = feedback(guess, hidden_code)
       UI.show_board(board)
@@ -42,10 +42,20 @@ class MasterMind
         EMPTY
       end
     end
-    .shuffle # To avoid giving positional hints
+    #.shuffle # To avoid giving positional hints
   end
 
-  def cpu_guess(last_guess, feedback)
-    return COLORS.sample(5) if feedback.all?(EMPTY)
+  #Knuth Algorithm
+  def cpu_guess(feedback, hidden_code)
+    if !@possible_solutions || !@last_guess
+      @possible_solutions = COLORS.repeated_permutation(5).to_a
+      @last_guess = ['🔴', '🔴', '🔵', '🔵', '🟢'] #First guess
+    else
+      @possible_solutions.select! do |code|
+        feedback(code, @last_guess) == feedback(@last_guess, hidden_code)
+      end
+      @last_guess = @possible_solutions.first || COLORS.sample(5)
+    end
+    @last_guess
   end
 end
