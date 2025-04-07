@@ -41,7 +41,8 @@ class MasterMind
       else
         EMPTY
       end
-    end 
+    end
+    .shuffle # To avoid giving positional hints
   end
 
   def cpu_guess(last_guess, feedback)
