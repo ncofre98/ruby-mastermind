@@ -14,20 +14,17 @@ class MasterMind
 
   def play
     moves = 0
-    winner = false
     UI.show_instructions
     mode = UI.select_mode
     hidden_code = mode == 1 ? COLORS.sample(5) : UI.select_hidden_code
 
-    if mode == 1
-      while (moves < 12 && !winner)
-        guess = UI.select
-        board.selection_grid[moves] = guess
-        board.feedback_grid[moves] = feedback(guess, hidden_code)
-        UI.show_board(board)
-        break if board.selection_grid[moves] == hidden_code
-        moves += 1
-      end
+    while (moves < 12)
+      guess = UI.select
+      board.selection_grid[moves] = guess
+      board.feedback_grid[moves] = feedback(guess, hidden_code)
+      UI.show_board(board)
+      break if board.selection_grid[moves] == hidden_code
+      moves += 1
     end
  
     winner = board.selection_grid == hidden_code ? player1 : player2
