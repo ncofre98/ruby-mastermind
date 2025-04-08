@@ -26,8 +26,12 @@ class MasterMind
       break if board.selection_grid[moves] == hidden_code
       moves += 1
     end
- 
-    winner = board.selection_grid[moves] == hidden_code ? player1 : player2
+
+    if board.selection_grid[moves] == hidden_code
+      winner = mode == 1 ? player1 : player2
+    else
+      winner = mode == 1 ? player2 : player1
+    end
     UI.show_results(winner)
   end
 
@@ -54,19 +58,18 @@ class MasterMind
         result << EMPTY
       end
     end
-    result
+    result.sort_by { %w[⚫ ⚪ ➖].index(_1) }
   end
 
-  #Knuth Algorithm
-  def cpu_guess(feedback, hidden_code)
+  def cpu_guess(last_feedback, hidden_code)
     if !@possible_solutions || !@last_guess
       @possible_solutions = COLORS.repeated_permutation(4).to_a
       @last_guess = ['🔴', '🔴', '🔵', '🔵'] #First guess
     else
       @possible_solutions.select! do |code|
-        feedback(code, @last_guess) == feedback(@last_guess, hidden_code)
+        feedback(code, @last_guess) == last_feedback
       end
-      @last_guess = @possible_solutions.first || COLORS.sample(5)
+      @last_guess = @possible_solutions.first || COLORS.sample(4)
     end
     @last_guess
   end
