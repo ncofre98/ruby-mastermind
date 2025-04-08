@@ -30,6 +30,7 @@ class MasterMind
     if board.selection_grid[moves] == hidden_code
       winner = mode == 1 ? player1 : player2
     else
+      puts "Game over! The code was #{hidden_code}"
       winner = mode == 1 ? player2 : player1
     end
     UI.show_results(winner)
